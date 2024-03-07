@@ -70,6 +70,7 @@ const cars = ref([]);
 const retirarLicensePlate = ref('');
 
 const serverRoute = import.meta.env.VITE_SERVICE_URL;
+console.log("Solicitudes enviadas a: " + serverRoute)
 
 const registerCheckIn = () => {
   currentOption.value = 'registrarIngreso';
@@ -79,6 +80,7 @@ const showVehicleList = async () => {
   currentOption.value = 'listarVehiculos';
   try {
       const response = await axios.get(serverRoute);
+      console.log("Respuesta server:" + response.data)
       cars.value = response.data.vehicles;
   } catch (error) {
       console.error('Error al obtener la lista de vehículos:', error);
