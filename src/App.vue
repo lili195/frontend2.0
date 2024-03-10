@@ -65,7 +65,7 @@ import axios from 'axios';
 const currentOption = ref('');
 const licensePlate = ref('');
 const color = ref('');
-const photo = ref(null);
+const photo = ref();
 const cars = ref([]);
 const retirarLicensePlate = ref('');
 const isValidLicensePlate = ref(false);
