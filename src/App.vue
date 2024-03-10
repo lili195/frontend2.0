@@ -140,7 +140,7 @@ const submitCheckInForm = async () => {
 const clearForm = () => {
   licensePlate.value = "";
   color.value = "";
-  photo.value = null;
+  photo.value = "null";
 }
 
 const handleFileChange = (event) => {
