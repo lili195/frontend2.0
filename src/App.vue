@@ -1,60 +1,64 @@
 <template>
+  <h1> ¡Bienvenido! Por favor elija la opción que desee realizar</h1>
+  <p>
+    <img src=".\assets\car.png" alt="car logo">
+  </p>
   <div>
-      <button @click="registerCheckIn">Registrar Ingreso</button>
-      <button @click="showVehicleList">Listar Vehículos</button>
-      <button @click="checkOutVehicle">Retirar Carro</button>
+    <button @click="registerCheckIn">Registrar Ingreso</button>
+    <button @click="showVehicleList">Listar Vehículos</button>
+    <button @click="checkOutVehicle">Retirar Carro</button>
 
-      <div v-if="currentOption === 'registrarIngreso'">
-          <!-- Formulario para registrar el ingreso -->
-          <form @submit.prevent="submitCheckInForm">
-              <label for="licensePlate">Placa:</label>
-              <input v-model="licensePlate" type="text" required>
+    <div v-if="currentOption === 'registrarIngreso'">
+      <!-- Formulario para registrar el ingreso -->
+      <form @submit.prevent="submitCheckInForm">
+        <label for="licensePlate">Placa:</label>
+        <input v-model="licensePlate" type="text" required>
 
-              <label for="color">Color:</label>
-              <select v-model="color" required>
-                  <option value="" disabled selected>Seleccione un color</option>
-                  <option value="Negro">Negro</option>
-                  <option value="Azul">Azul</option>
-                  <option value="Verde">Verde</option>
-                  <option value="Rojo">Rojo</option>
-                  <option value="Amarillo">Amarillo</option>
-                  <option value="Naranja">Naranja</option>
-                  <option value="Blanco">Blanco</option>
-                  <option value="Gris">Gris</option>
-                  <option value="Marrón">Marrón</option>
-                  <option value="Morado">Morado</option>
-                  <option value="Rosado">Rosado</option>
-              </select>
+        <label for="color">Color:</label>
+        <select v-model="color" required>
+          <option value="" disabled selected>Seleccione un color</option>
+          <option value="Negro">Negro</option>
+          <option value="Azul">Azul</option>
+          <option value="Verde">Verde</option>
+          <option value="Rojo">Rojo</option>
+          <option value="Amarillo">Amarillo</option>
+          <option value="Naranja">Naranja</option>
+          <option value="Blanco">Blanco</option>
+          <option value="Gris">Gris</option>
+          <option value="Marrón">Marrón</option>
+          <option value="Morado">Morado</option>
+          <option value="Rosado">Rosado</option>
+        </select>
 
-              <label for="photo">Foto:</label>
-              <input type="file" @change="handleFileChange" accept="image/*">
+        <label for="photo">Foto:</label>
+        <input type="file" @change="handleFileChange" accept="image/*">
 
-              <button type="submit">Registrar Ingreso</button>
-          </form>
-      </div>
+        <button type="submit">Registrar Ingreso</button>
+      </form>
+    </div>
 
-      <div v-if="currentOption === 'listarVehiculos'">
-          <div class="car-container">
-              <div class="car-item" v-for="car in cars" :key="car.licensePlate">
-                  <img :src="'data:image/png;base64,' + car.photo" alt="Car Photo" class="car-photo">
-                  <div class="car-details">
-                      <p><strong>Placa:</strong> {{ car.licensePlate }}</p>
-                      <p><strong>Color:</strong> {{ car.color }}</p>
-                  </div>
-              </div>
+    <div v-if="currentOption === 'listarVehiculos'">
+      <div class="car-container">
+        <div class="car-item" v-for="car in cars" :key="car.licensePlate">
+          <img :src="'data:image/png;base64,' + car.photo" alt="Car Photo" class="car-photo">
+          <div class="car-details">
+            <p><strong>Placa:</strong> {{ car.licensePlate }}</p>
+            <p><strong>Color:</strong> {{ car.color }}</p>
           </div>
+        </div>
       </div>
+    </div>
 
 
-      <div v-if="currentOption === 'retirarCarro'">
-          <!-- Formulario para retirar un carro -->
-          <form @submit.prevent="submitRetirarForm">
-              <label for="retirarLicensePlate">Placa a retirar:</label>
-              <input v-model="retirarLicensePlate" type="text" required>
+    <div v-if="currentOption === 'retirarCarro'">
+      <!-- Formulario para retirar un carro -->
+      <form @submit.prevent="submitRetirarForm">
+        <label for="retirarLicensePlate">Placa a retirar:</label>
+        <input v-model="retirarLicensePlate" type="text" required>
 
-              <button type="submit">Retirar Carro</button>
-          </form>
-      </div>
+        <button type="submit">Retirar Carro</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -85,12 +89,12 @@ const validateLicensePlate = () => {
 const showVehicleList = async () => {
   currentOption.value = 'listarVehiculos';
   try {
-      const response = await axios.get(serverRoute);
-      console.log("Respuesta server:" + response.data)
-      cars.value = response.data.vehicles;
+    const response = await axios.get(serverRoute);
+    console.log("Respuesta server:" + response.data)
+    cars.value = response.data.vehicles;
   } catch (error) {
-      console.error('Error al obtener la lista de vehículos:', error);
-      alert('Ocurrió un error al intentar obtener la lista de vehículos');
+    console.error('Error al obtener la lista de vehículos:', error);
+    alert('Ocurrió un error al intentar obtener la lista de vehículos');
   }
 };
 
@@ -108,7 +112,7 @@ const submitCheckInForm = async () => {
   console.log(formData)
   validateLicensePlate(licensePlate.value)
 
-  if (isValidLicensePlate.value === true){
+  if (isValidLicensePlate.value === true) {
     console.log("Placa valida registrada");
 
     try {
@@ -130,7 +134,7 @@ const submitCheckInForm = async () => {
       console.error('Error en la solicitud:', error);
       alert('Ocurrió un error al intentar guardar los datos');
     }
-  }else{
+  } else {
     console.log("No cumple con el formato de placa");
     alert("Por favor, ingrese una placa valida");
     clearForm();
@@ -151,17 +155,17 @@ const handleFileChange = (event) => {
 const submitRetirarForm = async () => {
   currentOption.value = 'retirarCarro';
   try {
-      const response = await axios.patch(serverRoute, { licensePlate: retirarLicensePlate.value });
-      if (response.status === 200) {
-          console.log('auto eliminado correctamente');
-          alert('Auto retirado exitosamente');
-      } else {
-          console.log('no se elimino el auto correctamente');
-          alert('No se pudo retirar el vehiculo');
-      }
+    const response = await axios.patch(serverRoute, { licensePlate: retirarLicensePlate.value });
+    if (response.status === 200) {
+      console.log('auto eliminado correctamente');
+      alert('Auto retirado exitosamente');
+    } else {
+      console.log('no se elimino el auto correctamente');
+      alert('No se pudo retirar el vehiculo');
+    }
   } catch (error) {
-      console.error('Error al retirar un auto')
-      alert('Ocurrio un error al intentar retirar un auto')
+    console.error('Error al retirar un auto')
+    alert('Ocurrio un error al intentar retirar un auto')
   }
   retirarLicensePlate.value = '';
 };
