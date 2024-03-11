@@ -63,9 +63,6 @@
 </template>
 
 <script setup>
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -77,7 +74,7 @@ const cars = ref([]);
 const retirarLicensePlate = ref('');
 const isValidLicensePlate = ref(false);
 
-const serverRoute = process.env.VITE_SERVICE_URL;
+const serverRoute = import.meta.env.VITE_SERVICE_URL;
 console.log("Solicitudes enviadas a: " + serverRoute)
 
 const registerCheckIn = () => {
