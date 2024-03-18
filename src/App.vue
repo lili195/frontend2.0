@@ -39,10 +39,10 @@
 
     <div v-if="currentOption === 'listarVehiculos'">
       <div class="car-container">
-        <div class="car-item" v-for="car in cars" :key="car.licensePlate">
-          <img :src="'data:image/png;base64,' + car.photo" alt="Car Photo" class="car-photo">
+        <div class="car-item" v-for="car in cars" :key="car.licenseplate">
+          <img :src="'data:image/jpeg;base64,' + car.photo" alt="Car Photo" class="car-photo">
           <div class="car-details">
-            <p><strong>Placa:</strong> {{ car.licensePlate }}</p>
+            <p><strong>Placa:</strong> {{ car.licenseplate }}</p>
             <p><strong>Color:</strong> {{ car.color }}</p>
           </div>
         </div>
@@ -155,7 +155,7 @@ const handleFileChange = (event) => {
 const submitRetirarForm = async () => {
   currentOption.value = 'retirarCarro';
   try {
-    const response = await axios.patch(serverRoute, { licensePlate: retirarLicensePlate.value });
+    const response = await axios.patch(serverRoute, retirarLicensePlate.value);
     if (response.status === 200) {
       console.log('auto eliminado correctamente');
       alert('Auto retirado exitosamente');
