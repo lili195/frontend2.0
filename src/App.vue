@@ -38,16 +38,17 @@
     </div>
 
     <div v-if="currentOption === 'listarVehiculos'">
-      <div class="car-container">
-        <div class="car-item" v-for="car in cars" :key="car.licenseplate">
-          <img :src="'data:image/jpeg;base64,' + car.photo" alt="Car Photo" class="car-photo">
-          <div class="car-details">
-            <p><strong>Placa:</strong> {{ car.licenseplate }}</p>
-            <p><strong>Color:</strong> {{ car.color }}</p>
-          </div>
-        </div>
+  <div class="car-container">
+    <div class="car-item" v-for="car in cars" :key="car.licenseplate">
+      <img :src="car.photopath" alt="Car Photo" class="car-photo">
+      <div class="car-details">
+        <p><strong>Placa:</strong> {{ car.licenseplate }}</p>
+        <p><strong>Color:</strong> {{ car.color }}</p>
       </div>
     </div>
+  </div>
+</div>
+
 
 
     <div v-if="currentOption === 'retirarCarro'">
